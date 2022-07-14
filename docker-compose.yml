@@ -1,0 +1,23 @@
+version: "3.9"
+
+services:
+  rstudio:
+    build:
+      context: .
+      args:
+        - VERSION=${R_VERSION}
+      image: rstudio:${R_VERSION}
+      container_name: rstudio_${R_VERSION}
+      environment:
+        - DISABLE_AUTH
+        - S6_VERSION
+        - R_VERSION
+        - RSTUDIO_VERSION
+        - DEFAULT_USER
+        - PANDOC_VERSION
+        - PATH
+      ports:
+        - 8787:8787
+      volumes:
+        - .config/rstudio:/home/rstudio/.config/rstudio
+        - ./project:/home/rstudio/project
